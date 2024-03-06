@@ -28,7 +28,8 @@ function crear() {
   })
   .then(response => response.json())
   .then(data => {
-    console.log('Nuevo usuario creado:', data);
+    alert("cita creada")
+    location.href =""
   })
   .catch(error => {
     console.error('Error al crear el usuario:', error);
