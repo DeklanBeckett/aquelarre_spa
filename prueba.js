@@ -1,31 +1,71 @@
-function crear(){
-    let name = document.getElementById("name")
-    let email = document.getElementById("email")
-    let number = document.getElementById("number")
-    let url = "https://aquelarre-data-base.glitch.me/users"
 
-    let cita = {
-        name: name.value,
-        numero : number.value,
-        email :email.value,
-        citas : []
-    }
-    fetch('https://aquelarre-data-base.glitch.me/users', { // URL actualizada para obtener datos
+// funcion para crear un usuario
+function crear() {
+  let name = document.getElementById("name").value;
+  let email = document.getElementById("email").value;
+  let number = document.getElementById("number").value;
+  let url = "https://covenspa-3528f-default-rtdb.firebaseio.com/users.json";
+
+  let newUser = {
+    name: name,
+    numero: number,
+    email: email,
+    citas: [
+      {
+        date: "",
+        type: "",
+        notes: ""
+      }
+    ]
+  };
+
+  fetch(url, {
     method: 'POST',
-    body: JSON.stringify(cita), // 'cita' es el objeto que estás enviando como datos
+    body: JSON.stringify(newUser),
     headers: {
       'Content-Type': 'application/json'
     }
   })
   .then(response => response.json())
   .then(data => {
-    alert("Funcionó"); // Muestra una alerta si la solicitud es exitosa
+    console.log('Nuevo usuario creado:', data);
   })
   .catch(error => {
-    console.error('Error:', error); // Muestra el error en la consola si la solicitud falla
-  })
-
+    console.error('Error al crear el usuario:', error);
+  });
 }
 
-fetch("https://aquelarre-data-base.glitch.me/users").then(r=>r.json())
-then()
+
+
+//traer datos de la api del spa
+
+
+
+fetch("https://covenspa-3528f-default-rtdb.firebaseio.com/users.json")
+  .then(r => r.json())
+  .then(data => {
+    for (const key in data) {
+      if (data.hasOwnProperty(key)) {
+        console.log(data[key]);
+      }
+    }
+  });
+
+
+  // function eliminarPrimerRegistro() {
+  //   const url = "https://covenspa-3528f-default-rtdb.firebaseio.com/users/-NsK-aPWk1BZXzQo9AxB";
+  
+  //   fetch(url, {
+  //     method: 'DELETE'
+  //   })
+  //   .then(response => {
+  //     if (response.ok) {
+  //       console.log("El primer registro ha sido eliminado exitosamente.");
+  //     } else {
+  //       console.log("No se pudo eliminar el primer registro.");
+  //     }
+  //   })
+  //   .catch(error => {
+  //     console.error('Error al intentar eliminar el primer registro:', error);
+  //   });
+  // }
