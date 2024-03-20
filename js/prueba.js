@@ -33,24 +33,34 @@ function crear() {
   })
   .catch(error => {
     console.error('Error al crear el usuario:', error);
-  });
+  }); 
 }
 
 
 
 //traer datos de la api del spa
 
-
-
+let row = document.getElementById("row");
 fetch("https://covenspa-3528f-default-rtdb.firebaseio.com/users.json")
-  .then(r => r.json())
-  .then(data => {
+  .then(r => r.json()).then(data => {
     for (const key in data) {
-      if (data.hasOwnProperty(key)) {
-        console.log(data[key]);
-      }
+      console.log(key, data[key]);
+      // Obtener el nombre del usuario
+      const userName = data[key].name;
+      const usernumber = data[key].numero;
+      // Añadir el nombre al HTML
+      row.innerHTML += `
+      <div class="col-md-3">
+            <div class="card">
+                <div><div class="card-body">
+                    <h1>${userName}</h1>
+                    <p>${usernumber}</p>
+                </div></div>
+      </div>
+      `
     }
   });
+
 
 
   // function eliminarPrimerRegistro() {
